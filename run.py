@@ -39,12 +39,18 @@ def open_browser():
 	except Exception as e:
 		logging.info('打开浏览器失败:', str(e))
 		
-t = threading.Thread(target=open_browser())
+# t = threading.Thread(target=open_browser)
 
-if __name__=='__main__':
-	if find_browser(s['browserpath'])!=False:
-		t.setDaemon(True)
-		t.start()
+
+def main():
+	t1 = threading.Thread(target = open_browser)
+	t2 = threading.Thread(target = locust)
+	t1.start()
+	t2.start()
+
+
+if __name__== '__main__':
+	if find_browser(s['browserpath']) != False:
+		main()
 	else:
 		logging.info('浏览器路径未配置，请自行打开浏览器访问：http://localhost:%s' % int(s['port']))
-	locust()
