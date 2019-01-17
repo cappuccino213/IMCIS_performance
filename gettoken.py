@@ -9,7 +9,7 @@
 """获取token"""
 import requests
 
-HEADERS = {'Content-Type':'application/json','Connection': 'close'}
+HEADERS = {'Content-Type': 'application/json'}
 
 
 def new_key():
@@ -28,7 +28,7 @@ def get_token():
 	audience = new_key()
 	# audience = "5D47E01B49294D86970AE662D144BAD3"
 	body = "{'UniqueIdentity':'zyp','Audience':%s,'CustomData':'','Expire':2}"% audience
-	r = requests.post(url,headers = HEADERS,data = body)
+	r = requests.post(url, headers=HEADERS, data=body)
 	return r.json()['token']
 
 # print(get_token())

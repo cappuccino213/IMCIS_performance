@@ -8,7 +8,16 @@
 # @Contact : yeahcheung213@163.com
 import configparser
 import logging
-logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',level=logging.DEBUG, filemode='a', filename='locust.log')
+
+logging.basicConfig(level = logging.DEBUG, filemode = 'a',filename = 'run.log' ,format = ('''[时间]:%(asctime)s
+[线程]:%(thread)s
+[级别]:%(levelname)s
+[路径]:%(pathname)s
+[函数]:%(funcName)s
+[行号]:%(lineno)d
+[信息]:%(message)s
+------------------
+'''))
 #日志启用开关,注释掉即开启日志
 # logging.disable(logging.DEBUG)
 

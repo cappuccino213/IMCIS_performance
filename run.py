@@ -15,7 +15,8 @@ import threading
 
 # cmd中运行locust
 def locust():
-	cmd = 'locust -f %s\IMCIS.py -P %s'%(os.getcwd(),int(s['port']))
+	log = s['iflogsv']
+	cmd = 'locust -f %s\IMCIS.py -P %s %s'%(os.getcwd(),int(s['port']),log)
 	logging.info('运行命令：%s' % cmd)
 	p = os.popen(cmd)
 	print(p.read())
@@ -39,18 +40,13 @@ def open_browser():
 	except Exception as e:
 		logging.info('打开浏览器失败:', str(e))
 		
-# t = threading.Thread(target=open_browser)
-
-
-def main():
-	t1 = threading.Thread(target = open_browser)
-	t2 = threading.Thread(target = locust)
-	t1.start()
-	t2.start()
+t = threading.Thread(target=open_browser)
 
 
 if __name__== '__main__':
 	if find_browser(s['browserpath']) != False:
-		main()
+		t.setDaemon(True)
+		t.start()
 	else:
 		logging.info('浏览器路径未配置，请自行打开浏览器访问：http://localhost:%s' % int(s['port']))
+	locust()

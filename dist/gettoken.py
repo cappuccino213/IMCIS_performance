@@ -7,9 +7,10 @@
 # @license : Copyright(C), eWord Technology Co., Ltd.
 # @Contact : yeahcheung213@163.com
 """获取token"""
-
 import requests
+
 HEADERS = {'Content-Type':'application/json'}
+
 
 def new_key():
 	url = 'http://192.168.1.19:6001/openkey/new'
@@ -20,9 +21,7 @@ def new_key():
 		   "'UserRequestExpireSession':false}"
 	r = requests.post(url,headers = HEADERS,data = body)
 	return r.text
-# print(new_key().status_code)
-# print(new_key().encoding)
-# print(new_key().text)
+
 
 def get_token():
 	url = 'http://192.168.1.19:6001/token/retrive'
@@ -31,4 +30,5 @@ def get_token():
 	body = "{'UniqueIdentity':'zyp','Audience':%s,'CustomData':'','Expire':2}"% audience
 	r = requests.post(url,headers = HEADERS,data = body)
 	return r.json()['token']
-# print(type(get_token()),get_token())
+
+# print(get_token())

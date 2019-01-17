@@ -9,13 +9,15 @@
 from locust import TaskSet,task
 from locust import HttpLocust
 from gettoken import get_token
-from readini import *
+from readini import s
+import logging
+
 
 # 请求头信息的数据类型设置为x-www-form-urlencoded
-h1 = {'Content-Type': 'application/x-www-form-urlencoded','Connection': 'close'}
+h1 = {'Content-Type': 'application/x-www-form-urlencoded'}
 
 # 获取token的头信息
-h2 = {'Authorization':get_token()}
+h2 = {'Authorization': get_token()}
 
 
 class IMCISTask(TaskSet):
@@ -43,8 +45,11 @@ class IMCISTask(TaskSet):
 		api = 'login_api'
 		title = api.split('_')[0]
 		logging.info('test %s: %s' % (api, s[api]))
-		response = self.client.get(s[api], headers=h2, name=title)
-		logging.info('%s result:%s' % (title, response.status_code))
+		try:
+			response = self.client.get(s[api], headers=h2, name=title)
+			logging.info('%s result:%s' % (title, response.status_code))
+		except Exception as e:
+			logging.info(e)
 	
 	# 检查信息查询
 	@task(int(s['checklist_w']))
@@ -52,8 +57,11 @@ class IMCISTask(TaskSet):
 		api = 'checklist_api'
 		title = api.split('_')[0]
 		logging.info('test %s: %s' % (api, s[api]))
-		response = self.client.get(s[api], headers=h2, name=title)
-		logging.info('%s result:%s' % (title, response.status_code))
+		try:
+			response = self.client.get(s[api], headers=h2, name=title)
+			logging.info('%s result:%s' % (title, response.status_code))
+		except Exception as e:
+			logging.info(e)
 	
 	# 获取预设方案
 	@task(int(s['getpreset_w']))
@@ -61,8 +69,11 @@ class IMCISTask(TaskSet):
 		api = 'getpreset_api'
 		title = api.split('_')[0]
 		logging.info('test %s: %s' % (api, s[api]))
-		response = self.client.get(s[api], headers=h2, name=title)
-		logging.info('%s result:%s' % (title, response.status_code))
+		try:
+			response = self.client.get(s[api], headers=h2, name=title)
+			logging.info('%s result:%s' % (title, response.status_code))
+		except Exception as e:
+			logging.info(e)
 	
 	# 获取结果状态
 	@task(int(s['getdocstatus_w']))
@@ -70,8 +81,11 @@ class IMCISTask(TaskSet):
 		api = 'getdocstatus_api'
 		title = api.split('_')[0]
 		logging.info('test %s: %s' % (api, s[api]))
-		response = self.client.get(s[api], headers=h2, name=title)
-		logging.info('%s result:%s' % (title, response.status_code))
+		try:
+			response = self.client.get(s[api], headers=h2, name=title)
+			logging.info('%s result:%s' % (title, response.status_code))
+		except Exception as e:
+			logging.info(e)
 	
 	# 获取文字报告
 	@task(int(s['getreport_w']))
@@ -79,8 +93,11 @@ class IMCISTask(TaskSet):
 		api = 'getreport_api'
 		title = api.split('_')[0]
 		logging.info('test %s: %s' % (api, s[api]))
-		response = self.client.get(s[api], headers=h2, name=title)
-		logging.info('%s result:%s' % (title, response.status_code))
+		try:
+			response = self.client.get(s[api], headers=h2, name=title)
+			logging.info('%s result:%s' % (title, response.status_code))
+		except Exception as e:
+			logging.info(e)
 	
 	# 获取图文报告
 	@task(int(s['getdoc_w']))
@@ -99,14 +116,17 @@ class IMCISTask(TaskSet):
 	def getrecordexam(self):
 		api = 'getrecordexam_api'
 		title = api.split('_')[0]
-		logging.info('test %s: %s'%(api,s[api]))
-		response = self.client.get(s[api], headers = h2, name = title)
-		logging.info('%s result:%s'%(title,response.status_code))
+		logging.info('test %s: %s'%(api, s[api]))
+		try:
+			response = self.client.get(s[api], headers = h2, name = title)
+			logging.info('%s result:%s'%(title,response.status_code))
+		except Exception as e:
+			logging.info(e)
 		
 	# 获取胶片
-	@task(int(s['getdoc1_w']))
-	def getrecordexam(self):
-		api = 'getdoc1_api'
+	@task(int(s['getfilm_w']))
+	def getfilm(self):
+		api = 'getfilm_api'
 		title = api.split('_')[0]
 		logging.info('test %s: %s' % (api, s[api]))
 		try:
